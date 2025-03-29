@@ -1,4 +1,6 @@
 import React from 'react'
+import Hippo from './Hippo'
+import EstacaoClimatica from './EstacaoClimatica'
 
 class App extends React.Component {
 
@@ -12,6 +14,19 @@ class App extends React.Component {
       icon: null,
       errorMessage: null
     }
+    console.log('constructor')
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount')
+  }
+
+  componentDidUpdate() {
+    console.log('componentDidUpdate')
+  }
+
+  componentWillUnmount() {
+    console.log('componentWillUnmount')
   }
 
   seasons = {
@@ -66,13 +81,13 @@ class App extends React.Component {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
           season: currentSeason.name,
-          date: currentDate.toLocaleDateString(),
+          date: currentDate.toLocaleString(),
           icon: seasonIcon
         })
       },
       (error) => {
         this.setState({
-          errorMessage: "Tente novamente mais tarde"
+          errorMessage: 'Tente novamente mais tarde'
         })
       }
     )
@@ -84,47 +99,24 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="container border mt-4 text-center">
-        <div className="row">
-          <div className="col-12">
-            <div className="justify-content-center d-flex">
-              <i className="fa-hippo fas fa-4x" />
+      <div className='container border mt-4 text-center'>
+        <div className='row'>
+          <div className='col-12'>
+            <div className='justify-content-center d-flex'>
+              <Hippo />
             </div>
           </div>
         </div>
-        <div className="row justify-content-center">
-          <div className="col-sm-12 col-lg-6 col xxl-4">
-            <div className="card">
-              <div className="card-body">
-                <div
-                  className="d-flex align-items-center border rounded mb-2"
-                  style={{ height: '6rem' }}>
-                  <i className={`fas fa-5x ${this.state.icon}`} />
-                  <p className="w-75 ms-3 text-center fs-1">
-                    {this.state.season}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-center">
-                    {
-                      this.state.latitude ?
-                        `Coordenadas: ${this.state.latitude}, ${this.state.longitude}. Data: ${this.state.date}` :
-                        this.state.errorMessage ?
-                          `${this.state.errorMessage}` :
-                          "Clique no botão para saber a sua estação"
-                    }
-                  </p>
-                </div>
-                <div>
-                  <button
-                    type="button"
-                    className="btn btn-outline-primary w-100 mt-2"
-                    onClick={() => this.getLocation()}>
-                    Qual a minha estação?
-                  </button>
-                </div>
-              </div>
-            </div>
+        <div className='row justify-content-center'>
+          <div className='col-sm-12 col-lg-6 col xxl-4'>
+            <EstacaoClimatica
+              latitude={this.state.latitude}
+              longitude={this.state.longitude}
+              season={this.state.season}
+              icon={this.state.icon}
+              date={this.state.date}
+              errorMessage={this.state.errorMessage}
+              getLocation={this.getLocation} />
           </div>
         </div>
       </div>
