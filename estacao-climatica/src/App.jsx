@@ -1,8 +1,17 @@
 import React from 'react'
 import Hippo from './Hippo'
 import EstacaoClimatica from './EstacaoClimatica'
+import Loading from './Loading'
 
 class App extends React.Component {
+
+  state = {
+    latitude: null,
+    longitude: null,
+    season: null,
+    icon: null,
+    errorMessage: null
+  }
 
   constructor(props) {
     super(props)
@@ -10,7 +19,6 @@ class App extends React.Component {
       latitude: null,
       longitude: null,
       season: null,
-      date: null,
       icon: null,
       errorMessage: null
     }
@@ -81,7 +89,6 @@ class App extends React.Component {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
           season: currentSeason.name,
-          date: currentDate.toLocaleString(),
           icon: seasonIcon
         })
       },
@@ -93,9 +100,9 @@ class App extends React.Component {
     )
   }
 
-  // componentDidMount() {
-  //   this.getLocation()
-  // }
+  componentDidMount() {
+    this.getLocation()
+  }
 
   render() {
     return (
@@ -109,14 +116,23 @@ class App extends React.Component {
         </div>
         <div className='row justify-content-center'>
           <div className='col-sm-12 col-lg-6 col xxl-4'>
-            <EstacaoClimatica
-              latitude={this.state.latitude}
-              longitude={this.state.longitude}
-              season={this.state.season}
-              icon={this.state.icon}
-              date={this.state.date}
-              errorMessage={this.state.errorMessage}
-              getLocation={this.getLocation} />
+            {
+              (!this.state.latitude && !this.state.errorMessage) ?
+                <Loading message='Por favor, responda à solicitação de localização'/>
+                :
+                this.state.errorMessage ?
+                  <p className='border rounded p-2 fs-1 text-center'>
+                    É preciso dar permissão para acesso à localização
+                  </p>
+                  :
+                  <EstacaoClimatica
+                    latitude={this.state.latitude}
+                    longitude={this.state.longitude}
+                    season={this.state.season}
+                    icon={this.state.icon}
+                    errorMessage={this.state.errorMessage}
+                    getLocation={this.getLocation} />
+            }
           </div>
         </div>
       </div>

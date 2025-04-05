@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export default class EstacaoClimatica extends Component {
 
     timer = null
-    
+
     state = {
         date: null
     }
@@ -18,7 +18,7 @@ export default class EstacaoClimatica extends Component {
     }
 
     componentWillUnmount() {
-        clearInterval(this,timer)
+        clearInterval(this.timer)
     }
 
     render() {
@@ -39,9 +39,7 @@ export default class EstacaoClimatica extends Component {
                             {
                                 this.props.latitude ?
                                     `Coordenadas: ${this.props.latitude}, ${this.props.longitude}. Data: ${this.state.date}` :
-                                    this.props.errorMessage ?
-                                        `${this.props.errorMessage}` :
-                                        'Clique no botão para saber a sua estação'
+                                    'Clique no botão para obter sua estação'
                             }
                         </p>
                     </div>
