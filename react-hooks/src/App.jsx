@@ -1,6 +1,7 @@
 // rafce
 import React from 'react'
 import Accordion from './components/Accordion'
+import Busca from './components/Busca'
 
 const items = [
   {
@@ -18,9 +19,12 @@ const items = [
 ]
 
 const App = () => {
+  const jsxExpression = <Busca />
+
   return (
     <div>
-      <Accordion items={items}/>
+      {/* <Accordion items={items} /> */}
+      <Busca />
     </div>
   )
 }
