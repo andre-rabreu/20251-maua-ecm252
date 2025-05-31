@@ -19,12 +19,12 @@ const items = [
 ]
 
 const App = () => {
-  const jsxExpression = <Busca />
+  // const jsxExpression = <Busca />
 
   return (
     <div>
-      {/* <Accordion items={items} /> */}
-      <Busca />
+      <Accordion items={items} />
+      {/* <Busca /> */}
     </div>
   )
 }
